@@ -53,6 +53,8 @@ class Demo extends React.Component {
 
   render() {
     return <Chessground
+      width={512}
+      height={512}
       orientation={this.myColor()}
       turnColor={this.turnColor()}
       movable={this.calcMovable()}
