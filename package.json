@@ -1,0 +1,35 @@
+{
+  "name": "react-chessground",
+  "version": "0.1.0",
+  "description": "React warp for chessground",
+  "main": "index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rallets-network/react-chessground.git"
+  },
+  "keywords": [
+    "chess",
+    "chessboard",
+    "chessground",
+    "react"
+  ],
+  "authors": [
+    "Yicheng Zhou",
+    "Rallets"
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/rallets-network/react-chessground/issues"
+  },
+  "homepage": "https://github.com/rallets-network/react-chessground",
+  "dependencies": {
+    "chessground": "^7.3.2"
+  },
+  "devDependencies": {
+    "react": "^16.3.2"
+  }
+}
