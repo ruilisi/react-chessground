@@ -22,7 +22,7 @@ class Demo extends React.Component {
 }
 ```
 
-You can grab CSS and image files from [example](https://github.com/rallets-network/react-chessground/example)
+You can grab CSS and image files from [example](https://github.com/rallets-network/react-chessground/tree/master/example)
 
 ### Documentation
 
@@ -35,4 +35,4 @@ You can refer to documentation of `Chessground` for detailed configuration
 
 ### Example
 
-An example of playing with random opponent is provided in [example](https://github.com/rallets-network/react-chessground/example)
+An example of playing with random opponent is provided in [example](https://github.com/rallets-network/react-chessground/tree/master/example)
