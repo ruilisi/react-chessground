@@ -10,14 +10,26 @@ export default class Chessground extends React.Component {
     turnColor: PropTypes.string,
     check: PropTypes.string,
     lastMove: PropTypes.array,
+    selected: PropTypes.string,
     coordinates: PropTypes.bool,
+    autoCastle: PropTypes.bool,
+    viewOnly: PropTypes.bool,
+    disableContextMenu: PropTypes.bool,
     resizable: PropTypes.bool,
+    addPieceZIndex: PropTypes.bool,
     hightlight: PropTypes.object,
+    animation: PropTypes.object,
     movable: PropTypes.object,
+    premovable: PropTypes.object,
+    predroppable: PropTypes.object,
+    draggable: PropTypes.object,
+    selectable: PropTypes.object,
     onChange: PropTypes.func,
     onMove: PropTypes.func,
     onDropNewPiece: PropTypes.func,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    items: PropTypes.object,
+    drawable: PropTypes.object
   }
 
   static defaultProps = {
