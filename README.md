@@ -22,9 +22,11 @@ class Demo extends React.Component {
 }
 ```
 
+You can grab CSS and image files from [example](https://github.com/rallets-network/react-chessground/example)
+
 ### Documentation
 
-All options of `Chessground` are mapped to properties of `react-chessground`
+Options of `Chessground` are mapped to properties of `react-chessground`
 
 You can refer to documentation of `Chessground` for detailed configuration
 
