@@ -5,6 +5,8 @@ import { Chessground as NativeChessground } from 'chessground'
 export default class Chessground extends React.Component {
 
   static propTypes = {
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     fen: PropTypes.string,
     orientation: PropTypes.string,
     turnColor: PropTypes.string,
@@ -70,8 +72,13 @@ export default class Chessground extends React.Component {
   }
 
   render() {
-    const props = {}
-    if (this.props.style) props.style = this.props.style
+    const props = { style: { ...this.props.style } }
+    if (this.props.width) {
+      props.style.width = this.props.width
+    }
+    if (this.props.height) {
+      props.style.height = this.props.height
+    }
     return <div ref={el => this.el = el} {...props} />
   }
 }
