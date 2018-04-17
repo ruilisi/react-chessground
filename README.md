@@ -1,4 +1,4 @@
-<img src="https://github.com/rallets-network/react-chessground/raw/master/screenshoot/chess.png" width="350px" />
+<img src="https://github.com/rallets-network/react-chessground/raw/master/screenshot/chess.png" width="350px" />
 
 **react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
 
