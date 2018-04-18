@@ -12,8 +12,7 @@ npm install --save react-chessground
 
 ```js
 import Chessground from 'react-chessground'
-import 'chessground.css'
-import 'chessground-theme.css'
+import 'react-chessground/dist/styles/chessground.css'
 
 class Demo extends React.Component {
   render () {
@@ -21,8 +20,6 @@ class Demo extends React.Component {
   }
 }
 ```
-
-You can grab CSS and image files from [example](https://github.com/rallets-network/react-chessground/tree/master/example)
 
 ### Documentation
 
