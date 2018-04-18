@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Chess from 'chess.js'
 import Chessground from 'react-chessground'
-import './styles/chessground.css'
-import './styles/chessground-theme.css'
+import 'react-chessground/dist/styles/chessground.css'
 
 class Demo extends React.Component {
 

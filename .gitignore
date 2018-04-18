@@ -1,5 +1,6 @@
 node_modules
 es
 umd
+dist
 npm-debug.log
 /*.js

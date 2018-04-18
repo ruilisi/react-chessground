@@ -5,7 +5,7 @@
   "main": "index.js",
   "module": "es/index.js",
   "scripts": {
-    "build": "node ./scripts/build.js"
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "chessground": "^7.3.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-imports": "^1.5.0",
@@ -38,6 +38,10 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglifycss": "^1.0.9",
     "react": "^16.3.2"
   }
 }
