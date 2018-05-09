@@ -4,3 +4,4 @@ umd
 dist
 npm-debug.log
 /*.js
+!gulpfile.js
