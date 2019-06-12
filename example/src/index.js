@@ -46,8 +46,10 @@ class Demo extends React.Component {
     const chess = this.chess
     const moves = chess.moves({ verbose: true })
     const move = moves[Math.floor(Math.random() * moves.length)]
-    chess.move(move.san)
+    if (moves.length > 0) {
+      chess.move(move.san)
     this.setState({ fen: chess.fen(), lastMove: [move.from, move.to] })
+    }
   }
 
   render() {

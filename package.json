@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rallets-network/react-chessground.git"
+    "url": "https://github.com/paiyou-network/react-chessground.git"
   },
   "keywords": [
     "chess",
@@ -18,16 +18,16 @@
     "react"
   ],
   "authors": [
-    "Yicheng Zhou",
-    "Rallets"
+    "Paiyou Network"
   ],
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/rallets-network/react-chessground/issues"
+    "url": "https://github.com/paiyou-network/react-chessground/issues"
   },
-  "homepage": "https://github.com/rallets-network/react-chessground",
+  "homepage": "https://github.com/paiyou-network/react-chessground",
   "dependencies": {
-    "chessground": "^7.3.2"
+    "chessground": "^7.3.2",
+    "react-scripts": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

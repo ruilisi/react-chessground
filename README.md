@@ -1,4 +1,4 @@
-<img src="https://github.com/rallets-network/react-chessground/raw/master/screenshot/chess.png" width="350px" />
+<img src="https://github.com/paiyou-network/react-chessground/raw/master/screenshot/chess.png" width="350px" />
 
 **react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
 
@@ -32,4 +32,4 @@ You can refer to documentation of `Chessground` for detailed configuration
 
 ### Example
 
-An example of playing with random opponent is provided in [example](https://github.com/rallets-network/react-chessground/tree/master/example)
+An example of playing with random opponent is provided in [example](https://github.com/paiyou-network/react-chessground/tree/master/example)
