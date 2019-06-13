@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom'
 import Chess from 'chess.js'
 import Chessground from 'react-chessground'
 import 'react-chessground/dist/styles/chessground.css'
+import { Statistic } from 'antd';
+
+const Countdown = Statistic.Countdown;
+const deadline = Date.now()+1000*20;
+function onfinish(){
+  alert("Times up,you lose");
+}
 
 class Demo extends React.Component {
-
   chess = new Chess()
 
   state = {
@@ -29,7 +35,6 @@ class Demo extends React.Component {
       color: this.myColor()
     }
   }
-
   myColor() {
     return 'white'
   }
@@ -51,9 +56,17 @@ class Demo extends React.Component {
     this.setState({ fen: chess.fen(), lastMove: [move.from, move.to] })
     }
   }
-
+  reset = () =>{
+    this.chess.reset()
+    this.setState({fen: this.chess.fen()})
+  }
+  undo = () =>{
+    this.chess.undo()
+    this.setState({fen: this.chess.fen()})
+  }
   render() {
-    return <Chessground
+    console.info(this.state.fen)
+    return <div><Chessground
       width={512}
       height={512}
       orientation={this.myColor()}
@@ -63,8 +76,17 @@ class Demo extends React.Component {
       fen={this.state.fen}
       onMove={this.onMove}
       style={{ margin: 'auto' }}
-    />
+      />
+          <button onClick={() => this.reset() }>reset</button>
+          <button onClick={() => this.undo() }>undo</button>
+
+
+
+
+  <Countdown title="Timeleft" value={deadline} onFinish={onfinish} />
+             </div>
   }
 }
 
 ReactDOM.render(<Demo />, document.getElementById('root'))
+
