@@ -1,1 +1,4 @@
-module.exports = require('./chessground')
+import App from "./App"
+import "./index.css"
+
+export default App
