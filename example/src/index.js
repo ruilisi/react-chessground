@@ -1,6 +1,4 @@
-import React from 'react'
-import App from './App'
-import './index.css'
+import App from "./App"
+import "./index.css"
 
-export default index
-
+export default App

@@ -14,6 +14,21 @@ module.exports = {
         use: ["style-loader", "css-loader", "less-loader"]
       },
       {
+        enforce: "pre",
+        use: [
+          {
+            options: {
+              exclude: /node_modules/,
+              ignore: false,
+              emitError: true,
+              useEslintrc: true
+            },
+            loader: require.resolve("eslint-loader")
+          }
+        ],
+        exclude: [/[/\\\\]node_modules[/\\\\]/, /html/]
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
