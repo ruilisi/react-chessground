@@ -25,7 +25,7 @@ module.exports = {
     'react/no-danger': 0,
     'react/prop-types': 0,
     "class-methods-use-this": "off",
-    'import/no-extraneous-dependencies': ['error', { packageDir: '.'  }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     'react/forbid-prop-types': ['any', 'array'],
     'react/jsx-no-bind': [
       true,
