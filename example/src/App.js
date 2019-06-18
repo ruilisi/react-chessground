@@ -13,21 +13,43 @@ class Demo extends React.Component {
   chess = new Chess()
 
   state = {
-    visible: false,
-    visible2: false,
     selectVisible: false,
+    visibleUserwin: false,
+    visibleComwin: false,
+    visibleDraw: false,
+    userTimeout: false,
+    comTimeout: false,
+    isPaused: false,
+    isPausedCom: true,
+    time: 300,
+    timeCom: 300,
     fen: "",
     lastMove: null,
-    score1: 10,
-    score2: 10
+    scoreUser: 10,
+    scoreCom: 10
   }
 
   pendingMove = null
 
+  tUser = setInterval(() => {
+    const { isPaused, time } = this.state
+    if (!isPaused && time > 0) {
+      this.setState({ time: time - 1 })
+    }
+    return time
+  }, 1000)
+
+  tCom = setInterval(() => {
+    const { isPausedCom, timeCom } = this.state
+    if (!isPausedCom && timeCom > 0) {
+      this.setState({ timeCom: timeCom - 1 })
+    }
+    return timeCom
+  }, 1000)
+
   onMove = (from, to) => {
     console.info(from, to)
     const { chess } = this
-    const { score1 } = this.state
     const moves = chess.moves({ verbose: true })
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
       if (moves[i].flags.indexOf("p") !== -1) {
@@ -37,15 +59,28 @@ class Demo extends React.Component {
         })
         return
       }
-    }
-    if (chess.move({ from, to, promotion: "q" })) {
-      this.setState({ fen: chess.fen(), lastMove: [from, to] })
-      setTimeout(this.randomMove, 500)
-      if (this.chess.game_over() === true) {
-        this.setState({
-          visible: true,
-          score1: score1 + 10
-        })
+      const { scoreUser, scoreCom, time, timeCom } = this.state
+      if (time < 1) {
+        this.setState({ userTimeout: true })
+      }
+      if (timeCom < 1) {
+        this.setState({ comTimeout: true })
+      }
+      if (chess.move({ from, to, promotion: "q" })) {
+        this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false })
+        setTimeout(this.randomMove, 1500)
+        if (this.chess.in_checkmate() === true) {
+          this.setState({
+            visibleUserwin: true,
+            scoreUser: scoreUser + 10,
+            scoreCom: scoreCom - 5
+          })
+        }
+        if (this.chess.in_stalemate() === true) {
+          this.setState({
+            visibleDraw: true
+          })
+        }
       }
     }
   }
@@ -65,18 +100,33 @@ class Demo extends React.Component {
 
   randomMove = () => {
     const { chess } = this
-    const { score2 } = this.state
+    const { scoreUser, scoreCom, time, timeCom } = this.state
     const moves = chess.moves({ verbose: true })
     const move = moves[Math.floor(Math.random() * moves.length)]
+    if (time < 1) {
+      this.setState({ userTimeout: true })
+    }
+    if (timeCom < 1) {
+      this.setState({ comTimeout: true })
+    }
     if (moves.length > 0) {
       chess.move(move.san)
-      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to] })
+      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to], isPaused: false, isPausedCom: true })
       if (this.chess.game_over() === true) {
-        this.setState({ visible2: true, score2: score2 + 10 })
+        this.setState({
+          visibleComwin: true,
+          scoreCom: scoreCom + 10,
+          scoreUser: scoreUser - 5
+        })
+      }
+      if (this.chess.in_stalemate() === true) {
+        this.setState({
+          visibleDraw: true
+        })
       }
     }
-    sleep(1500).then(() => {
-      this.setState({ visible: false })
+    sleep(2000).then(() => {
+      this.setState({ visibleUserwin: false, visibleComwin: false, visibleDraw: false, userTimeout: false, comTimeout: false })
     })
   }
 
@@ -86,8 +136,10 @@ class Demo extends React.Component {
   }
 
   undo = () => {
-    this.chess.undo()
-    this.setState({ fen: this.chess.fen() })
+    if (!this.chess.game_over()) {
+      this.chess.undo()
+      this.setState({ fen: this.chess.fen() })
+    }
   }
 
   turnColor() {
@@ -112,7 +164,7 @@ class Demo extends React.Component {
   }
 
   render() {
-    const { fen, visible, visible2, selectVisible, lastMove, score1, score2 } = this.state
+    const { selectVisible, time, timeCom, userTimeout, comTimeout, fen, visibleUserwin, visibleComwin, visibleDraw, lastMove, scoreUser, scoreCom } = this.state
     return (
       <div>
         <Chessground
@@ -122,20 +174,33 @@ class Demo extends React.Component {
           turnColor={this.turnColor()}
           movable={this.calcMovable()}
           lastMove={lastMove}
-          score1={score1}
-          score2={score2}
+          scoreUser={scoreUser}
+          scoreCom={scoreCom}
           fen={fen}
           onMove={this.onMove}
           style={{ margin: "auto" }}
         />
-        <div>Your score:{score1}</div>
+        <p>Computer time remaining:{timeCom}</p>
+        <p>Your time remaining:{time}</p>
+        <div>Your score:{scoreUser}</div>
+        <div>Com score:{scoreCom}</div>
         <Button onClick={() => this.reset()}>Reset</Button>
         <Button onClick={() => this.undo()}>Undo</Button>
-        <Modal visible={visible} footer={null}>
-          <p>Game over,you win</p>
+
+        <Modal visible={visibleUserwin} footer={null}>
+          <p>Game over,you win by checkmate</p>
         </Modal>
-        <Modal visible={visible2} footer={null}>
-          <p>Game over, you lose</p>
+        <Modal visible={visibleComwin} footer={null}>
+          <p>Game over, you lose by checkmate</p>
+        </Modal>
+        <Modal visible={visibleDraw} footer={null}>
+          <p>Game over, draw due to stalemate</p>
+        </Modal>
+        <Modal visible={userTimeout} footer={null}>
+          <p>Game over, you lose due to time out</p>
+        </Modal>
+        <Modal visible={comTimeout} footer={null}>
+          <p>Game over, you win due to Computer time out</p>
         </Modal>
         <Modal visible={selectVisible} footer={null}>
           <div>
