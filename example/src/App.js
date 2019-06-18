@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
 import "react-chessground/dist/styles/chessground.css"
-import { Modal, Button } from "antd"
+import { Modal, Button, Radio } from "antd"
 
 const sleep = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -15,15 +15,29 @@ class Demo extends React.Component {
   state = {
     visible: false,
     visible2: false,
+    selectVisible: false,
     fen: "",
     lastMove: null,
     score1: 10,
     score2: 10
   }
 
+  pendingMove = null
+
   onMove = (from, to) => {
+    console.info(from, to)
     const { chess } = this
     const { score1 } = this.state
+    const moves = chess.moves({ verbose: true })
+    for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
+      if (moves[i].flags.indexOf("p") !== -1) {
+        this.pendingMove = [from, to]
+        this.setState({
+          selectVisible: true
+        })
+        return
+      }
+    }
     if (chess.move({ from, to, promotion: "q" })) {
       this.setState({ fen: chess.fen(), lastMove: [from, to] })
       setTimeout(this.randomMove, 500)
@@ -34,6 +48,19 @@ class Demo extends React.Component {
         })
       }
     }
+  }
+
+  onChange(e) {
+    const { chess } = this
+    const from = this.pendingMove[0]
+    const to = this.pendingMove[1]
+    chess.move({ from, to, promotion: e.target.value })
+    this.setState({
+      fen: chess.fen(),
+      lastMove: [from, to],
+      selectVisible: false
+    })
+    setTimeout(this.randomMove, 500)
   }
 
   randomMove = () => {
@@ -85,7 +112,7 @@ class Demo extends React.Component {
   }
 
   render() {
-    const { fen, visible, visible2, lastMove, score1, score2 } = this.state
+    const { fen, visible, visible2, selectVisible, lastMove, score1, score2 } = this.state
     return (
       <div>
         <Chessground
@@ -109,6 +136,16 @@ class Demo extends React.Component {
         </Modal>
         <Modal visible={visible2} footer={null}>
           <p>Game over, you lose</p>
+        </Modal>
+        <Modal visible={selectVisible} footer={null}>
+          <div>
+            <Radio.Group onChange={e => this.onChange(e)} defaultValue="a">
+              <Radio.Button value="q">QUEEN</Radio.Button>
+              <Radio.Button value="r">ROOK</Radio.Button>
+              <Radio.Button value="b">BISHOP</Radio.Button>
+              <Radio.Button value="n">KNIGHT</Radio.Button>
+            </Radio.Group>
+          </div>
         </Modal>
       </div>
     )
