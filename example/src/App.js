@@ -111,7 +111,7 @@ class Demo extends React.Component {
     }
   }
 
-  onChange(e) {
+  promotion(e) {
     const { chess } = this
     const from = this.pendingMove[0]
     const to = this.pendingMove[1]
@@ -257,7 +257,7 @@ class Demo extends React.Component {
         </Modal>
         <Modal visible={selectVisible} footer={null}>
           <div>
-            <Radio.Group onChange={e => this.onChange(e)} defaultValue="q">
+            <Radio.Group promotion={e => this.promotion(e)} defaultValue="q">
               <Radio.Button value="q">QUEEN</Radio.Button>
               <Radio.Button value="r">ROOK</Radio.Button>
               <Radio.Button value="b">BISHOP</Radio.Button>
