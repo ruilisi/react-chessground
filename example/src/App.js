@@ -48,7 +48,6 @@ class Demo extends React.Component {
   }, 1000)
 
   onMove = (from, to) => {
-    console.info(from, to)
     const { chess } = this
     const moves = chess.moves({ verbose: true })
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
@@ -66,7 +65,7 @@ class Demo extends React.Component {
       if (timeCom < 1) {
         this.setState({ comTimeout: true })
       }
-      if (chess.move({ from, to, promotion: "q" })) {
+      if (chess.move({ from, to, promotion: "x" })) {
         this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false })
         setTimeout(this.randomMove, 1500)
         if (this.chess.in_checkmate() === true) {
@@ -204,7 +203,7 @@ class Demo extends React.Component {
         </Modal>
         <Modal visible={selectVisible} footer={null}>
           <div>
-            <Radio.Group onChange={e => this.onChange(e)} defaultValue="a">
+            <Radio.Group onChange={e => this.onChange(e)} defaultValue="q">
               <Radio.Button value="q">QUEEN</Radio.Button>
               <Radio.Button value="r">ROOK</Radio.Button>
               <Radio.Button value="b">BISHOP</Radio.Button>
