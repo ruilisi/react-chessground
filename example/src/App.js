@@ -21,8 +21,10 @@ class Demo extends React.Component {
     comTimeout: false,
     isPaused: false,
     isPausedCom: true,
-    time: 300,
-    timeCom: 300,
+    time: 600,
+    timeCom: 600,
+    mytime: "",
+    opptime: "",
     fen: "",
     lastMove: null,
     scoreUser: 10,
@@ -33,17 +35,41 @@ class Demo extends React.Component {
 
   tUser = setInterval(() => {
     const { isPaused, time } = this.state
+    let min = Math.floor(time / 60)
+    let sec = time - min * 60
+    if (min < 10) {
+      min = `0${min}`
+    }
+    if (sec < 10) {
+      sec = `0${sec}`
+    }
+    const message = `${min}:${sec}`
+
     if (!isPaused && time > 0) {
       this.setState({ time: time - 1 })
     }
-    return time
+
+    this.setState({ mytime: message })
+    return message
   }, 1000)
 
   tCom = setInterval(() => {
     const { isPausedCom, timeCom } = this.state
+    let min = Math.floor(timeCom / 60)
+    let sec = timeCom - min * 60
+    if (min < 10) {
+      min = `0${min}`
+    }
+    if (sec < 10) {
+      sec = `0${sec}`
+    }
+    const message = `${min}:${sec}`
+
     if (!isPausedCom && timeCom > 0) {
       this.setState({ timeCom: timeCom - 1 })
     }
+
+    this.setState({ opptime: message })
     return timeCom
   }, 1000)
 
@@ -164,19 +190,30 @@ class Demo extends React.Component {
   }
 
   render() {
-    const { selectVisible, time, timeCom, userTimeout, comTimeout, fen, visibleUserwin, visibleComwin, visibleDraw, lastMove, scoreUser, scoreCom } = this.state
+    const {
+      selectVisible,
+      userTimeout,
+      comTimeout,
+      fen,
+      visibleUserwin,
+      visibleComwin,
+      visibleDraw,
+      lastMove,
+      scoreUser,
+      scoreCom,
+      mytime,
+      opptime
+    } = this.state
     return (
       <div style={{ background: "#2b313c", height: "100vh" }}>
-        <Row style={{ marginLeft: "30%", paddingTop: "1%", paddingBottom: "1%" }}>
-          <Col>
-            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
-            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
-            <span style={{ marginLeft: "27%", color: "white", verticalAlign: "bottom" }}>Computer time remaining:{timeCom}</span>
-          </Col>
+        <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
+          <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+          <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
+          <div style={{ color: "white", float: "right" }}>{opptime}</div>
         </Row>
         <Chessground
-          width={512}
-          height={512}
+          width="38vw"
+          height="38vw"
           orientation={this.myColor()}
           turnColor={this.turnColor()}
           movable={this.calcMovable()}
@@ -187,12 +224,10 @@ class Demo extends React.Component {
           onMove={this.onMove}
           style={{ margin: "auto" }}
         />
-        <Row style={{ marginLeft: "30%", paddingTop: "1%", paddingBottom: "1%" }}>
-          <Col>
-            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
-            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
-            <span style={{ marginLeft: "30%", color: "white", verticalAlign: "top" }}>Your time remaining:{time}</span>
-          </Col>
+        <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
+          <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+          <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
+          <div style={{ color: "white", float: "right" }}>{mytime}</div>
         </Row>
         <Col style={{ marginTop: "-20%", marginLeft: "5%" }}>
           <Button style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.reset()}>
