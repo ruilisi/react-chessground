@@ -26,7 +26,7 @@ module.exports = {
             loader: require.resolve("eslint-loader")
           }
         ],
-        exclude: [/[/\\\\]node_modules[/\\\\]/, /html/]
+        exclude: [/[/\\\\]node_modules[/\\\\]/, /html/, /images/]
       },
       {
         test: /\.js$/,

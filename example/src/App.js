@@ -3,7 +3,11 @@ import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
 import "react-chessground/dist/styles/chessground.css"
-import { Col, Row, Modal, Button, Radio, Avatar } from "antd"
+import { Col, Row, Modal, Button, Avatar } from "antd"
+import queen from "./images/wQ.svg"
+import rook from "./images/wR.svg"
+import bishop from "./images/wB.svg"
+import knight from "./images/wN.svg"
 
 const sleep = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -76,7 +80,6 @@ class Demo extends React.Component {
   onMove = (from, to) => {
     const { chess } = this
     const moves = chess.moves({ verbose: true })
-    console.info(chess.moves({ verbose: true }))
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
       if (moves[i].flags.indexOf("p") !== -1) {
         this.pendingMove = [from, to]
@@ -94,7 +97,7 @@ class Demo extends React.Component {
       }
       if (chess.move({ from, to, promotion: "x" })) {
         this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false })
-        setTimeout(this.randomMove, 1500)
+        setTimeout(this.randomMove, 500)
         if (this.chess.in_checkmate() === true) {
           this.setState({
             visibleUserwin: true,
@@ -109,19 +112,6 @@ class Demo extends React.Component {
         }
       }
     }
-  }
-
-  promotion(e) {
-    const { chess } = this
-    const from = this.pendingMove[0]
-    const to = this.pendingMove[1]
-    chess.move({ from, to, promotion: e.target.value })
-    this.setState({
-      fen: chess.fen(),
-      lastMove: [from, to],
-      selectVisible: false
-    })
-    setTimeout(this.randomMove, 500)
   }
 
   randomMove = () => {
@@ -166,6 +156,19 @@ class Demo extends React.Component {
       this.chess.undo()
       this.setState({ fen: this.chess.fen() })
     }
+  }
+
+  promotion(e) {
+    const { chess } = this
+    const from = this.pendingMove[0]
+    const to = this.pendingMove[1]
+    chess.move({ from, to, promotion: e })
+    this.setState({
+      fen: chess.fen(),
+      lastMove: [from, to],
+      selectVisible: false
+    })
+    setTimeout(this.randomMove, 500)
   }
 
   turnColor() {
@@ -255,14 +258,20 @@ class Demo extends React.Component {
         <Modal visible={comTimeout} footer={null}>
           <p>Game over, you win due to Computer time out</p>
         </Modal>
-        <Modal visible={selectVisible} footer={null}>
-          <div>
-            <Radio.Group promotion={e => this.promotion(e)} defaultValue="q">
-              <Radio.Button value="q">QUEEN</Radio.Button>
-              <Radio.Button value="r">ROOK</Radio.Button>
-              <Radio.Button value="b">BISHOP</Radio.Button>
-              <Radio.Button value="n">KNIGHT</Radio.Button>
-            </Radio.Group>
+        <Modal visible={selectVisible} footer={null} closable={false}>
+          <div style={{ textAlign: "center", cursor: "pointer" }}>
+            <span role="presentation" onClick={() => this.promotion("q")}>
+              <img src={queen} alt="" style={{ width: 50 }} />
+            </span>
+            <span role="presentation" onClick={() => this.promotion("r")}>
+              <img src={rook} alt="" style={{ width: 50 }} />
+            </span>
+            <span role="presentation" onClick={() => this.promotion("b")}>
+              <img src={bishop} alt="" style={{ width: 50 }} />
+            </span>
+            <span role="presentation" onClick={() => this.promotion("n")}>
+              <img src={knight} alt="" style={{ width: 50 }} />
+            </span>
           </div>
         </Modal>
       </div>
