@@ -1,5 +1,5 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   entry: "./src/index.js",
@@ -36,10 +36,7 @@ module.exports = {
             loader: "babel-loader",
             options: {
               presets: ["@babel/preset-env", "@babel/preset-react"],
-              plugins: [
-                ["@babel/plugin-proposal-class-properties"],
-                ["import", { libraryName: "antd", style: "css" }]
-              ]
+              plugins: [["@babel/plugin-proposal-class-properties"], ["import", { libraryName: "antd", style: "css" }]]
             }
           }
         ]
@@ -55,4 +52,4 @@ module.exports = {
       template: "./src/index.html"
     })
   ]
-};
+}

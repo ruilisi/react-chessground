@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
 import "react-chessground/dist/styles/chessground.css"
-import { Modal, Button, Radio } from "antd"
+import { Col, Row, Modal, Button, Radio, Avatar } from "antd"
 
 const sleep = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -50,6 +50,7 @@ class Demo extends React.Component {
   onMove = (from, to) => {
     const { chess } = this
     const moves = chess.moves({ verbose: true })
+    console.info(chess.moves({ verbose: true }))
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
       if (moves[i].flags.indexOf("p") !== -1) {
         this.pendingMove = [from, to]
@@ -165,7 +166,14 @@ class Demo extends React.Component {
   render() {
     const { selectVisible, time, timeCom, userTimeout, comTimeout, fen, visibleUserwin, visibleComwin, visibleDraw, lastMove, scoreUser, scoreCom } = this.state
     return (
-      <div>
+      <div style={{ background: "#2b313c", height: "100vh" }}>
+        <Row style={{ marginLeft: "30%", paddingTop: "1%", paddingBottom: "1%" }}>
+          <Col>
+            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
+            <span style={{ marginLeft: "27%", color: "white", verticalAlign: "bottom" }}>Computer time remaining:{timeCom}</span>
+          </Col>
+        </Row>
         <Chessground
           width={512}
           height={512}
@@ -179,13 +187,24 @@ class Demo extends React.Component {
           onMove={this.onMove}
           style={{ margin: "auto" }}
         />
-        <p>Computer time remaining:{timeCom}</p>
-        <p>Your time remaining:{time}</p>
-        <div>Your score:{scoreUser}</div>
-        <div>Com score:{scoreCom}</div>
-        <Button onClick={() => this.reset()}>Reset</Button>
-        <Button onClick={() => this.undo()}>Undo</Button>
-
+        <Row style={{ marginLeft: "30%", paddingTop: "1%", paddingBottom: "1%" }}>
+          <Col>
+            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
+            <span style={{ marginLeft: "30%", color: "white", verticalAlign: "top" }}>Your time remaining:{time}</span>
+          </Col>
+        </Row>
+        <Col style={{ marginTop: "-20%", marginLeft: "5%" }}>
+          <Button style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.reset()}>
+            Reset
+          </Button>
+          <Button
+            style={{ marginLeft: 10, fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }}
+            onClick={() => this.undo()}
+          >
+            Undo
+          </Button>
+        </Col>
         <Modal visible={visibleUserwin} footer={null}>
           <p>Game over,you win by checkmate</p>
         </Modal>
