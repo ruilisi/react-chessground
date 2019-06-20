@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
 import "react-chessground/dist/styles/chessground.css"
-import { Col, Row, Modal, Button, Avatar } from "antd"
+import { List, Col, Row, Modal, Button, Avatar } from "antd"
 import queen from "./images/wQ.svg"
 import rook from "./images/wR.svg"
 import bishop from "./images/wB.svg"
@@ -32,7 +32,8 @@ class Demo extends React.Component {
     fen: "",
     lastMove: null,
     scoreUser: 10,
-    scoreCom: 10
+    scoreCom: 10,
+    userHistory: []
   }
 
   pendingMove = null
@@ -96,7 +97,7 @@ class Demo extends React.Component {
         this.setState({ comTimeout: true })
       }
       if (chess.move({ from, to, promotion: "x" })) {
-        this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false })
+        this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false, userHistory: chess.history() })
         setTimeout(this.randomMove, 500)
         if (this.chess.in_checkmate() === true) {
           this.setState({
@@ -127,7 +128,7 @@ class Demo extends React.Component {
     }
     if (moves.length > 0) {
       chess.move(move.san)
-      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to], isPaused: false, isPausedCom: true })
+      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to], isPaused: false, isPausedCom: true, userHistory: chess.history() })
       if (this.chess.game_over() === true) {
         this.setState({
           visibleComwin: true,
@@ -148,13 +149,13 @@ class Demo extends React.Component {
 
   reset = () => {
     this.chess.reset()
-    this.setState({ fen: this.chess.fen() })
+    this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
   }
 
   undo = () => {
     if (!this.chess.game_over()) {
       this.chess.undo()
-      this.setState({ fen: this.chess.fen() })
+      this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
     }
   }
 
@@ -166,7 +167,8 @@ class Demo extends React.Component {
     this.setState({
       fen: chess.fen(),
       lastMove: [from, to],
-      selectVisible: false
+      selectVisible: false,
+      userHistory: chess.history()
     })
     setTimeout(this.randomMove, 500)
   }
@@ -205,7 +207,8 @@ class Demo extends React.Component {
       scoreUser,
       scoreCom,
       mytime,
-      opptime
+      opptime,
+      userHistory
     } = this.state
     return (
       <div style={{ background: "#2b313c", height: "100vh" }}>
@@ -214,6 +217,16 @@ class Demo extends React.Component {
           <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
           <div style={{ color: "white", float: "right" }}>{opptime}</div>
         </Row>
+        <Col span={3} push={19}>
+          <List
+            header={<h3>History</h3>}
+            size="small"
+            style={{ height: "43vw", overflowY: "scroll", background: "white" }}
+            bordered
+            dataSource={userHistory}
+            renderItem={item => <List.Item>{item}</List.Item>}
+          />
+        </Col>
         <Chessground
           width="38vw"
           height="38vw"
@@ -232,7 +245,7 @@ class Demo extends React.Component {
           <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
           <div style={{ color: "white", float: "right" }}>{mytime}</div>
         </Row>
-        <Col style={{ marginTop: "-20%", marginLeft: "5%" }}>
+        <Col span={6} style={{ marginTop: "-20%", marginLeft: "3%" }}>
           <Button style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.reset()}>
             Reset
           </Button>
