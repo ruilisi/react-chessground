@@ -1,6 +1,14 @@
 <img src="https://github.com/paiyou-network/react-chessground/raw/master/screenshot/chess.png" width="350px" />
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
+
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/undo.gif" width=400px />
+
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/reset.gif" width=400px />
+
+
 
 **react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
+
 
 ## Installation
 
@@ -48,7 +56,4 @@ You can refer to documentation of `Chessground` for detailed configuration
 - [Config default values](https://github.com/ornicar/chessground/tree/master/src/state.ts)
 
 
-<<<<<<< HEAD
 An example of playing with random opponent is provided in [example](https://github.com/paiyou-network/react-chessground/tree/master/example)
-=======
->>>>>>> 90775d1... Edit README file
