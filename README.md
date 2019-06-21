@@ -6,6 +6,8 @@
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/reset.gif" width=400px />
 
 
+# React Chessground
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
 
 **react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
 
@@ -47,7 +49,60 @@ class Demo extends React.Component {
 * `undo` - _function_ Function is called when undo button clicked. Disabled when game is over
 * `myColor` - _string_ Color for user.(default: `white`)
 
+Reset: Reset the board to the initial starting position.
+
+```js
+reset = () => {
+    this.chess.reset()
+    this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
+  }
+```
+
+Undo: Take back the last half-move.
+
+```js
+undo = () => {
+    if (!this.chess.game_over()) {
+      this.chess.undo()
+      this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
+    }
+  }
+ ```
+ Promotion: Provides choices for pawn's promotion. 
+ 
+ ```js
+ promotion(e) {
+    const { chess } = this
+    const from = this.pendingMove[0]
+    const to = this.pendingMove[1]
+    chess.move({ from, to, promotion: e })
+    this.setState({
+      fen: chess.fen(),
+      lastMove: [from, to],
+      selectVisible: false,
+      userHistory: chess.history()
+    })
+    setTimeout(this.randomMove, 500)
+  }
+ ```
+<img src="https://github.com/rallets-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
+
+History: Returns a list containing the moves of the current game. Options is an optional parameter which may contain a 'verbose' flag. See .moves() for a description of the verbose move fields.
+
+<img src="https://github.com/rallets-network/react-chessground/blob/master/screenshot/history.png" width="400px" />
+
+## Features
+
+* Move pieces by click
+* Move pieces by drag'n drop
+* drop off revert or trash
+* Premove by click or drag
+* Animation of pieces: moving and fading away
+
+You can see more features in [Chessground](https://github.com/ornicar/chessground)
+
 ## Documentation
+
 Options of `Chessground` are mapped to properties of `react-chessground`
 
 You can refer to documentation of `Chessground` for detailed configuration
