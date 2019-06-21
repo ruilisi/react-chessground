@@ -33,7 +33,8 @@ class Demo extends React.Component {
     lastMove: null,
     scoreUser: 10,
     scoreCom: 10,
-    userHistory: []
+    userHistory: [],
+    pause: false
   }
 
   pendingMove = null
@@ -77,6 +78,16 @@ class Demo extends React.Component {
     this.setState({ opptime: message })
     return timeCom
   }, 1000)
+
+  componentDidMount() {
+    const message = document.getElementById("scroll")
+    message.scrollTop = message.scrollHeight
+  }
+
+  componentDidUpdate() {
+    const message = document.getElementById("scroll")
+    message.scrollTop = message.scrollHeight
+  }
 
   onMove = (from, to) => {
     const { chess } = this
@@ -208,8 +219,12 @@ class Demo extends React.Component {
       scoreCom,
       mytime,
       opptime,
-      userHistory
+      userHistory,
+      pause
     } = this.state
+    if (this.chessground) {
+      this.chessground.cg.state.viewOnly = pause
+    }
     return (
       <div style={{ background: "#2b313c", height: "100vh" }}>
         <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
@@ -219,6 +234,7 @@ class Demo extends React.Component {
         </Row>
         <Col span={3} push={19}>
           <List
+            id="scroll"
             header={<h3>History</h3>}
             size="small"
             style={{ height: "43vw", overflowY: "scroll", background: "white" }}
@@ -233,12 +249,16 @@ class Demo extends React.Component {
           orientation={this.myColor()}
           turnColor={this.turnColor()}
           movable={this.calcMovable()}
+          viewOnly={!!pause}
           lastMove={lastMove}
           scoreUser={scoreUser}
           scoreCom={scoreCom}
           fen={fen}
           onMove={this.onMove}
           style={{ margin: "auto" }}
+          ref={el => {
+            this.chessground = el
+          }}
         />
         <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
           <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
@@ -254,6 +274,12 @@ class Demo extends React.Component {
             onClick={() => this.undo()}
           >
             Undo
+          </Button>
+          <Button
+            style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }}
+            onClick={() => this.setState({ pause: !pause })}
+          >
+            {pause === true ? "Start" : "Pause"}
           </Button>
         </Col>
         <Modal visible={visibleUserwin} footer={null}>

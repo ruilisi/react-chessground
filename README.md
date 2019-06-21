@@ -85,11 +85,11 @@ undo = () => {
     setTimeout(this.randomMove, 500)
   }
  ```
-<img src="https://github.com/rallets-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
 
 History: Returns a list containing the moves of the current game. Options is an optional parameter which may contain a 'verbose' flag. See .moves() for a description of the verbose move fields.
 
-<img src="https://github.com/rallets-network/react-chessground/blob/master/screenshot/history.png" width="400px" />
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/history.png" width="400px" />
 
 ## Features
 
