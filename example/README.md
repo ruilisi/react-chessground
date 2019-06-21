@@ -15,6 +15,8 @@ This is a demo project of [react-chessground](https://github.com/paiyou-network/
 
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/stalemate.gif" width=400px />
 
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
+
 ## Usage
 ```
 Run with `yarn start` and browse http://localhost:3000
