@@ -9,8 +9,9 @@
 # React Chessground
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
 
-**react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/initial.png" width="400px" />
 
+**react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
 
 ## Installation
 
@@ -54,7 +55,7 @@ Reset: Reset the board to the initial starting position.
 ```js
 reset = () => {
     this.chess.reset()
-    this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
+    this.setState({ fen: this.chess.fen() })
   }
 ```
 
@@ -62,12 +63,33 @@ Undo: Take back the last half-move.
 
 ```js
 undo = () => {
-    if (!this.chess.game_over()) {
-      this.chess.undo()
-      this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
-    }
+    this.chess.undo()
+    this.setState({ fen: this.chess.fen() })
   }
  ```
+ 
+ userPlaytime: The total amount of time a player in current game.
+ 
+ ```js
+ userPlaytime = setInterval(() => {
+    const { isPaused, time } = this.state
+    let min = Math.floor(time / 60)
+    let sec = time - min * 60
+    if (min < 10) {
+      min = `0${min}`
+    }
+    if (sec < 10) {
+      sec = `0${sec}`
+    }
+    const message = `${min}:${sec}`
+    if (!isPaused && time > 0) {
+      this.setState({ time: time - 1 })
+    }
+    this.setState({ mytime: message })
+    return message
+  }, 1000)
+  ```
+  
  Promotion: Provides choices for pawn's promotion. 
  
  ```js
@@ -79,27 +101,28 @@ undo = () => {
     this.setState({
       fen: chess.fen(),
       lastMove: [from, to],
-      selectVisible: false,
-      userHistory: chess.history()
+      selectVisible: false
     })
     setTimeout(this.randomMove, 500)
   }
  ```
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
-
-History: Returns a list containing the moves of the current game. Options is an optional parameter which may contain a 'verbose' flag. See .moves() for a description of the verbose move fields.
+ 
+History: Returns a list containing the moves of the current game.
 
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/history.png" width="400px" />
 
 ## Features
 
-* Move pieces by click
-* Move pieces by drag'n drop
-* drop off revert or trash
-* Premove by click or drag
-* Animation of pieces: moving and fading away
+* Display last move and check
 
-You can see more features in [Chessground](https://github.com/ornicar/chessground)
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
+
+*  Display move destinations, and premove destinations (hover effects possible)
+
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/premove.png" width="400px" />
+
+It's available to see more features in [Chessground](https://github.com/ornicar/chessground)
 
 ## Documentation
 
