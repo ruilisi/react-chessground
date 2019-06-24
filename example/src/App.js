@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
 import "react-chessground/dist/styles/chessground.css"
-import { List, Col, Row, Modal, Button, Avatar } from "antd"
+import { Icon, List, Col, Row, Modal, Button, Avatar } from "antd"
 import queen from "./images/wQ.svg"
 import rook from "./images/wR.svg"
 import bishop from "./images/wB.svg"
@@ -109,7 +109,7 @@ class Demo extends React.Component {
       this.setState({ comTimeout: true })
     }
     if (chess.move({ from, to, promotion: "x" })) {
-      this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false, userHistory: chess.history() })
+      this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false, userHistory: this.toDataSourse(chess.history()) })
       setTimeout(this.randomMove, 500)
       if (this.chess.in_checkmate() === true) {
         this.setState({
@@ -139,7 +139,7 @@ class Demo extends React.Component {
     }
     if (moves.length > 0) {
       chess.move(move.san)
-      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to], isPaused: false, isPausedCom: true, userHistory: chess.history() })
+      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to], isPaused: false, isPausedCom: true, userHistory: this.toDataSourse(chess.history()) })
       if (this.chess.game_over() === true) {
         this.setState({
           visibleComwin: true,
@@ -166,7 +166,7 @@ class Demo extends React.Component {
   undo = () => {
     if (!this.chess.game_over()) {
       this.chess.undo()
-      this.setState({ fen: this.chess.fen(), userHistory: this.chess.history() })
+      this.setState({ fen: this.chess.fen(), userHistory: this.toDataSourse(this.chess.history()) })
     }
   }
 
@@ -199,6 +199,22 @@ class Demo extends React.Component {
       dests,
       color: this.myColor()
     }
+  }
+
+  toDataSourse(h) {
+    const data = []
+    let k = 0
+    for (let i = 0; i < h.length; ) {
+      data[k] = []
+      for (let j = 0; j < 2; j += 1) {
+        if (h[i]) {
+          data[k][j] = h[i]
+        } else data[k][j] = null
+        i += 1
+      }
+      k += 1
+    }
+    return data
   }
 
   myColor() {
@@ -284,7 +300,19 @@ class Demo extends React.Component {
             style={{ height: "43vw", overflowY: "scroll", background: "white" }}
             bordered
             dataSource={userHistory}
-            renderItem={item => <List.Item>{item}</List.Item>}
+            renderItem={item => (
+              <List.Item>
+                <Col span={10} style={{ textAlign: "center" }}>
+                  {item[0]}
+                </Col>
+                <Col span={4} style={{ textAlign: "center" }}>
+                  <Icon type="right" />
+                </Col>
+                <Col span={10} style={{ textAlign: "center" }}>
+                  {item[1]}
+                </Col>
+              </List.Item>
+            )}
           />
         </Col>
 
