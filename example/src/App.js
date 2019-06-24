@@ -93,35 +93,35 @@ class Demo extends React.Component {
     const { chess } = this
     const moves = chess.moves({ verbose: true })
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
-      if (moves[i].flags.indexOf("p") !== -1) {
+      if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
         this.pendingMove = [from, to]
         this.setState({
           selectVisible: true
         })
         return
       }
-      const { scoreUser, scoreCom, time, timeCom } = this.state
-      if (time < 1) {
-        this.setState({ userTimeout: true })
+    }
+    const { scoreUser, scoreCom, time, timeCom } = this.state
+    if (time < 1) {
+      this.setState({ userTimeout: true })
+    }
+    if (timeCom < 1) {
+      this.setState({ comTimeout: true })
+    }
+    if (chess.move({ from, to, promotion: "x" })) {
+      this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false, userHistory: chess.history() })
+      setTimeout(this.randomMove, 500)
+      if (this.chess.in_checkmate() === true) {
+        this.setState({
+          visibleUserwin: true,
+          scoreUser: scoreUser + 10,
+          scoreCom: scoreCom - 5
+        })
       }
-      if (timeCom < 1) {
-        this.setState({ comTimeout: true })
-      }
-      if (chess.move({ from, to, promotion: "x" })) {
-        this.setState({ fen: chess.fen(), lastMove: [from, to], isPaused: true, isPausedCom: false, userHistory: chess.history() })
-        setTimeout(this.randomMove, 500)
-        if (this.chess.in_checkmate() === true) {
-          this.setState({
-            visibleUserwin: true,
-            scoreUser: scoreUser + 10,
-            scoreCom: scoreCom - 5
-          })
-        }
-        if (this.chess.in_stalemate() === true) {
-          this.setState({
-            visibleDraw: true
-          })
-        }
+      if (this.chess.in_stalemate() === true) {
+        this.setState({
+          visibleDraw: true
+        })
       }
     }
   }
