@@ -179,7 +179,7 @@ class Demo extends React.Component {
       fen: chess.fen(),
       lastMove: [from, to],
       selectVisible: false,
-      userHistory: chess.history()
+      userHistory: this.toDataSourse(chess.history())
     })
     setTimeout(this.randomMove, 500)
   }
