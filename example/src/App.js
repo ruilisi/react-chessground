@@ -227,12 +227,56 @@ class Demo extends React.Component {
     }
     return (
       <div style={{ background: "#2b313c", height: "100vh" }}>
-        <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
-          <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
-          <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
-          <div style={{ color: "white", float: "right" }}>{opptime}</div>
-        </Row>
-        <Col span={3} push={19}>
+        <Col span={6} push={3} style={{ top: "30%" }}>
+          <p>
+            <Button style={{ fontSize: 20, width: "11vw", height: "4vw", background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.reset()}>
+              Reset
+            </Button>
+          </p>
+          <p>
+            <Button style={{ fontSize: 20, width: "11vw", height: "4vw", background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.undo()}>
+              Undo
+            </Button>
+          </p>
+          <p>
+            <Button
+              style={{ fontSize: 20, width: "11vw", height: "4vw", background: "#3c93b0", border: 0, color: "white" }}
+              onClick={() => this.setState({ pause: !pause })}
+            >
+              {pause === true ? "Start" : "Pause"}
+            </Button>
+          </p>
+        </Col>
+        <Col span={12} style={{ top: "5%" }}>
+          <Row style={{ marginLeft: "12%", paddingTop: "1%", paddingBottom: "3%", marginRight: "12%" }}>
+            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>test</span>
+            <div style={{ color: "white", float: "right" }}>{opptime}</div>
+          </Row>
+          <Chessground
+            width="38vw"
+            height="38vw"
+            orientation={this.myColor()}
+            turnColor={this.turnColor()}
+            movable={this.calcMovable()}
+            viewOnly={!!pause}
+            lastMove={lastMove}
+            scoreUser={scoreUser}
+            scoreCom={scoreCom}
+            fen={fen}
+            onMove={this.onMove}
+            style={{ margin: "auto" }}
+            ref={el => {
+              this.chessground = el
+            }}
+          />
+          <Row style={{ marginLeft: "12%", paddingTop: "3%", paddingBottom: "1%", marginRight: "12%" }}>
+            <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
+            <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
+            <div style={{ color: "white", float: "right" }}>{mytime}</div>
+          </Row>
+        </Col>
+        <Col span={3} push={1} style={{ top: "10%" }}>
           <List
             id="scroll"
             header={<h3>History</h3>}
@@ -243,45 +287,7 @@ class Demo extends React.Component {
             renderItem={item => <List.Item>{item}</List.Item>}
           />
         </Col>
-        <Chessground
-          width="38vw"
-          height="38vw"
-          orientation={this.myColor()}
-          turnColor={this.turnColor()}
-          movable={this.calcMovable()}
-          viewOnly={!!pause}
-          lastMove={lastMove}
-          scoreUser={scoreUser}
-          scoreCom={scoreCom}
-          fen={fen}
-          onMove={this.onMove}
-          style={{ margin: "auto" }}
-          ref={el => {
-            this.chessground = el
-          }}
-        />
-        <Row style={{ marginLeft: "31%", paddingTop: "1%", paddingBottom: "1%", marginRight: "31%" }}>
-          <Avatar shape="square" style={{ background: "#3c93b0" }} size="large" icon="user" />
-          <span style={{ marginLeft: 10, color: "white", verticalAlign: "top" }}>User</span>
-          <div style={{ color: "white", float: "right" }}>{mytime}</div>
-        </Row>
-        <Col span={6} style={{ marginTop: "-20%", marginLeft: "3%" }}>
-          <Button style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }} onClick={() => this.reset()}>
-            Reset
-          </Button>
-          <Button
-            style={{ marginLeft: 10, fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }}
-            onClick={() => this.undo()}
-          >
-            Undo
-          </Button>
-          <Button
-            style={{ fontSize: 20, width: 120, height: 50, background: "#3c93b0", border: 0, color: "white" }}
-            onClick={() => this.setState({ pause: !pause })}
-          >
-            {pause === true ? "Start" : "Pause"}
-          </Button>
-        </Col>
+
         <Modal visible={visibleUserwin} footer={null}>
           <p>Game over,you win by checkmate</p>
         </Modal>
