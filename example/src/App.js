@@ -79,11 +79,6 @@ class Demo extends React.Component {
     return timeCom
   }, 1000)
 
-  componentDidMount() {
-    const message = document.getElementById("scroll")
-    message.scrollTop = message.scrollHeight
-  }
-
   componentDidUpdate() {
     const message = document.getElementById("scroll")
     message.scrollTop = message.scrollHeight
@@ -236,7 +231,8 @@ class Demo extends React.Component {
       mytime,
       opptime,
       userHistory,
-      pause
+      pause,
+      isPaused
     } = this.state
     if (this.chessground) {
       this.chessground.cg.state.viewOnly = pause
@@ -257,7 +253,7 @@ class Demo extends React.Component {
           <p>
             <Button
               style={{ fontSize: 20, width: "11vw", height: "4vw", background: "#3c93b0", border: 0, color: "white" }}
-              onClick={() => this.setState({ pause: !pause })}
+              onClick={() => this.setState({ pause: !pause, isPaused: !isPaused })}
             >
               {pause === true ? "Start" : "Pause"}
             </Button>
