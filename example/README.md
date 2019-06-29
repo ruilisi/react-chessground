@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a demo project of [react-chessground](https://github.com/paiyou-network/react-chessground)
 
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chessground.png" width="400px" />
@@ -15,6 +16,10 @@ This is a demo project of [react-chessground](https://github.com/paiyou-network/
 
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/stalemate.gif" width=400px />
 
+=======
+This is a demo project of [react-chessground](https://github.com/paiyou-network/react-chessground). Presentation of main features are displayed below.
+
+>>>>>>> f1ac241... rename
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
 
 ## Usage
