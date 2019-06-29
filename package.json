@@ -25,7 +25,6 @@
     "url": "https://github.com/paiyou-network/react-chessground/issues"
   },
   "homepage": "https://github.com/paiyou-network/react-chessground",
-<<<<<<< HEAD
   "dependencies": {
     "antd": "^3.19.3",
     "chess.js": "^0.10.2",
@@ -61,8 +60,6 @@
     "url": "https://github.com/paiyou-network/react-chessground/issues"
   },
   "homepage": "https://github.com/paiyou-network/react-chessground",
-=======
->>>>>>> f1ac241... rename
   "dependencies": {
     "chessground": "^7.3.2",
     "react-scripts": "^3.0.1"
