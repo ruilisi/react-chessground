@@ -1,7 +1,7 @@
 {
   "name": "react-chessground",
-  "version": "1.0.0",
-  "description": "React warp for chessground",
+  "version": "1.1.0",
+  "description": "React warp for chessground <https://github.com/ornicar/chessground>",
   "main": "index.js",
   "module": "es/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paiyou-network/react-chessground.git"
+    "url": "https://github.com/ruilisi/react-chessground.git"
   },
   "keywords": [
     "chess",
@@ -22,9 +22,9 @@
   ],
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/paiyou-network/react-chessground/issues"
+    "url": "https://github.com/ruilisi/react-chessground/issues"
   },
-  "homepage": "https://github.com/paiyou-network/react-chessground",
+  "homepage": "https://github.com/ruilisi/react-chessground",
   "dependencies": {
     "chessground": "^7.6.12",
     "react-scripts": "^3.3.0"
