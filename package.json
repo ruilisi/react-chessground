@@ -18,7 +18,7 @@
     "react"
   ],
   "authors": [
-    "Paiyou Network"
+    "Ruilisi"
   ],
   "license": "GPL-3.0",
   "bugs": {
@@ -26,57 +26,18 @@
   },
   "homepage": "https://github.com/paiyou-network/react-chessground",
   "dependencies": {
-    "antd": "^3.19.3",
-    "chess.js": "^0.10.2",
-    "eslint-config-prettier": "^4.3.0",
-    "less": "^3.9.0",
-    "react": "^16.8.6",
-    "react-chessground": "^1.0.0",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.1"
-  },
-  "scripts": {
-    "build": "gulp"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/paiyou-network/react-chessground.git"
-  },
-  "keywords": [
-    "chess",
-    "chessboard",
-    "chessground",
-    "react"
-  ],
-  "authors": [
-    "Paiyou Network"
-  ],
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/paiyou-network/react-chessground/issues"
-  },
-  "homepage": "https://github.com/paiyou-network/react-chessground",
-  "dependencies": {
-    "chessground": "^7.3.2",
-    "react-scripts": "^3.0.1"
+    "chessground": "^7.6.12",
+    "react-scripts": "^3.3.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-dev-expression": "^0.2.1",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-imports": "^1.5.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-uglifycss": "^1.0.9",
-    "react": "^16.3.2"
+    "gulp-uglifycss": "^1.1.0",
+    "react": "^16.12.0"
   }
 }
