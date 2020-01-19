@@ -2,6 +2,6 @@ node_modules
 es
 umd
 dist
-npm-debug.log
+*.log
 /*.js
 !gulpfile.js

@@ -52,6 +52,12 @@ gulp.task("css", () => {
     .pipe(gulp.dest("dist/styles"));
 });
 
+// gulp.task("assets", () => {
+// return gulp
+// .src("chessground-examples/assets/**/*")
+// .pipe(gulp.dest("dist/assets"));
+// });
+
 gulp.task("img", () => {
   return gulp.src("src/images/**/*").pipe(gulp.dest("dist/images"));
 });

@@ -1,1 +1,1 @@
-module.exports = require('./chessground')
+module.exports = require("./chessground");

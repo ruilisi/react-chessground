@@ -5,7 +5,7 @@
  * board and pieces displayed!
  */
 
-.cg-board-wrap {
+.cg-wrap {
   width: 512px;
   height: 512px;
   position: relative;
@@ -62,7 +62,7 @@
 .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-.cg-board-wrap piece {
+.cg-wrap piece {
   position: absolute;
   top: 0;
   left: 0;
@@ -84,13 +84,13 @@
   z-index: 1;
   opacity: 0.5;
 }
-.cg-board-wrap square.move-dest:hover {
+.cg-wrap square.move-dest:hover {
   background-color: rgba(20, 85, 30, 0.3);
 }
-.cg-board-wrap piece.ghost {
+.cg-wrap piece.ghost {
   opacity: 0.3;
 }
-.cg-board-wrap svg {
+.cg-wrap svg {
   overflow: hidden;
   position: relative;
   top: 0px;
@@ -101,27 +101,27 @@
   z-index: 2;
   opacity: 0.6;
 }
-.cg-board-wrap svg image {
+.cg-wrap svg image {
   opacity: 0.5;
 }
-.cg-board-wrap coords {
+.cg-wrap coords {
   position: absolute;
   display: flex;
   pointer-events: none;
   opacity: 0.8;
   font-size: 9px;
 }
-.cg-board-wrap coords.ranks {
+.cg-wrap coords.ranks {
   right: -15px;
   top: 0;
   flex-flow: column-reverse;
   height: 100%;
   width: 12px;
 }
-.cg-board-wrap coords.ranks.black {
+.cg-wrap coords.ranks.black {
   flex-flow: column;
 }
-.cg-board-wrap coords.files {
+.cg-wrap coords.files {
   bottom: -16px;
   left: 0;
   flex-flow: row;
@@ -130,12 +130,12 @@
   text-transform: uppercase;
   text-align: center;
 }
-.cg-board-wrap coords.files.black {
+.cg-wrap coords.files.black {
   flex-flow: row-reverse;
 }
-.cg-board-wrap coords coord {
+.cg-wrap coords coord {
   flex: 1 1 auto;
 }
-.cg-board-wrap coords.ranks coord {
+.cg-wrap coords.ranks coord {
   transform: translateY(39%);
 }
