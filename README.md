@@ -27,7 +27,7 @@ npm install --save react-chessground
 
 ```js
 import Chessground from 'react-chessground'
-import 'react-chessground/dist/styles/chessground.css'
+import 'react-chessground/dist/assets/chessground.css'
 import 'react-chessground/dist/assets/theme.css' // Or your own chess theme
 
 class Demo extends React.Component {
