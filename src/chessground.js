@@ -19,7 +19,7 @@ export default class Chessground extends React.Component {
     disableContextMenu: PropTypes.bool,
     resizable: PropTypes.bool,
     addPieceZIndex: PropTypes.bool,
-    hightlight: PropTypes.object,
+    highlight: PropTypes.object,
     animation: PropTypes.object,
     movable: PropTypes.object,
     premovable: PropTypes.object,
@@ -37,7 +37,7 @@ export default class Chessground extends React.Component {
   static defaultProps = {
     coordinates: true,
     resizable: true,
-    hightlight: {
+    highlight: {
       lastMove: true,
       check: true
     }
