@@ -47,7 +47,7 @@ export default class Chessground extends React.Component {
     const config = { events: {} }
     Object.keys(Chessground.propTypes).forEach(k => {
       const v = props[k]
-      if (v) {
+      if (typeof v !== 'undefined') {
         const match = k.match(/^on([A-Z]\S*)/)
         if (match) {
           config.events[match[1].toLowerCase()] = v
