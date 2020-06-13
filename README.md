@@ -1,17 +1,12 @@
-<img src="https://github.com/paiyou-network/react-chessground/raw/master/screenshot/chess.png" width="350px" />
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
-
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/undo.gif" width=400px />
-
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/reset.gif" width=400px />
-
-
 # React Chessground
+
+**react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
+
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
 
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/initial.png" width="400px" />
 
-**react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
+<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
 
 ## Installation
 
@@ -27,8 +22,7 @@ npm install --save react-chessground
 
 ```js
 import Chessground from 'react-chessground'
-import 'react-chessground/dist/assets/chessground.css'
-import 'react-chessground/dist/assets/theme.css' // Or your own chess theme
+import 'react-chessground/dist/styles/chessground.css'
 
 class Demo extends React.Component {
   render () {
@@ -49,7 +43,6 @@ class Demo extends React.Component {
   * `e` - _string_ Stores pieces user might want to choose upon promotion
 * `reset` - _function_ Function is called when reset button clicked
 * `undo` - _function_ Function is called when undo button clicked. Disabled when game is over
-* `myColor` - _string_ Color for user.(default: `white`)
 
 Reset: Reset the board to the initial starting position.
 
@@ -69,28 +62,6 @@ undo = () => {
   }
  ```
  
- userPlaytime: The total amount of time a player in current game.
- 
- ```js
- userPlaytime = setInterval(() => {
-    const { isPaused, time } = this.state
-    let min = Math.floor(time / 60)
-    let sec = time - min * 60
-    if (min < 10) {
-      min = `0${min}`
-    }
-    if (sec < 10) {
-      sec = `0${sec}`
-    }
-    const message = `${min}:${sec}`
-    if (!isPaused && time > 0) {
-      this.setState({ time: time - 1 })
-    }
-    this.setState({ mytime: message })
-    return message
-  }, 1000)
-  ```
-  
  Promotion: Provides choices for pawn's promotion. 
  
  ```js
@@ -109,10 +80,6 @@ undo = () => {
  ```
 <img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
  
-History: Returns a list containing the moves of the current game.
-
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/history.png" width="400px" />
-
 ## Features
 
 * Display last move and check

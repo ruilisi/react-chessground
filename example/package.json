@@ -8,7 +8,7 @@
     "eslint-config-prettier": "^4.3.0",
     "less": "^3.9.0",
     "react": "^16.8.6",
-    "react-chessground": "^1.0.0",
+    "react-chessground": "^1.5.0",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
