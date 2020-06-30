@@ -2,11 +2,11 @@
 
 **react-chessground** is a react wrapper of the awesome [Chessground](https://github.com/ornicar/chessground)
 
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/chess.png" width="400px" />
 
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/initial.png" width="400px" />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/initial.png" width="400px" />
 
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/promotion.gif" width=400px />
 
 ## Installation
 
@@ -16,7 +16,7 @@ npm install --save react-chessground
 
 ## Example
 
-- An example of playing with random opponent is provided in [example](https://github.com/paiyou-network/react-chessground/tree/master/example)
+- An example of playing with random opponent is provided in [example](https://github.com/ruilisi/react-chessground/tree/master/example)
 
 ## Usage
 
@@ -78,17 +78,17 @@ undo = () => {
     setTimeout(this.randomMove, 500)
   }
  ```
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/promotion.gif" width="400px" />
  
 ## Features
 
 * Display last move and check
 
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/chess.png" width="400px" />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/chess.png" width="400px" />
 
 *  Display move destinations, and premove destinations (hover effects possible)
 
-<img src="https://github.com/paiyou-network/react-chessground/blob/master/screenshot/premove.png" width="400px" />
+<img src="https://github.com/ruilisi/react-chessground/blob/master/screenshot/premove.png" width="400px" />
 
 It's available to see more features in [Chessground](https://github.com/ornicar/chessground)
 
@@ -102,4 +102,4 @@ You can refer to documentation of `Chessground` for detailed configuration
 - [Config default values](https://github.com/ornicar/chessground/tree/master/src/state.ts)
 
 
-An example of playing with random opponent is provided in [example](https://github.com/paiyou-network/react-chessground/tree/master/example)
+An example of playing with random opponent is provided in [example](https://github.com/ruilisi/react-chessground/tree/master/example)
