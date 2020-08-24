@@ -10,7 +10,7 @@ export default class Chessground extends React.Component {
     fen: PropTypes.string,
     orientation: PropTypes.string,
     turnColor: PropTypes.string,
-    check: PropTypes.string,
+    check: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     lastMove: PropTypes.array,
     selected: PropTypes.string,
     coordinates: PropTypes.bool,
