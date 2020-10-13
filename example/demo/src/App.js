@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom"
 import Chess from "chess.js"
 import Chessground from "react-chessground"
@@ -9,66 +9,57 @@ import rook from "./images/wR.svg"
 import bishop from "./images/wB.svg"
 import knight from "./images/wN.svg"
 
-class Demo extends React.Component {
-  chess = new Chess()
+const Demo = () => {
+  const [chess, setChess] = useState(new Chess())
+  const [pendingMove, setPendingMove] = useState()
+  const [selectVisible, setSelectVisible] = useState(false)
+  const [fen, setFen] = useState("")
+  const [lastMove, setLastMove] = useState()
 
-  state = {
-    selectVisible: false,
-    fen: "",
-    lastMove: null
-  }
-
-  pendingMove = null
-
-  onMove = (from, to) => {
-    const { chess } = this
+  const onMove = (from, to) => {
     const moves = chess.moves({ verbose: true })
     for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
       if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
-        this.pendingMove = [from, to]
-        this.setState({
-          selectVisible: true
-        })
+        setPendingMove([from, to])
+        setSelectVisible(true)
         return
       }
     }
     if (chess.move({ from, to, promotion: "x" })) {
-      this.setState({ fen: chess.fen(), lastMove: [from, to] })
-      setTimeout(this.randomMove, 500)
+      setFen(chess.fen())
+      setLastMove([from, to])
+      setTimeout(randomMove, 500)
     }
   }
 
-  randomMove = () => {
-    const { chess } = this
+  const randomMove = () => {
     const moves = chess.moves({ verbose: true })
     const move = moves[Math.floor(Math.random() * moves.length)]
     if (moves.length > 0) {
       chess.move(move.san)
-      this.setState({ fen: chess.fen(), lastMove: [move.from, move.to] })
+      setFen(chess.fen())
+      setLastMove([move.from, move.to])
     }
   }
 
-  promotion(e) {
-    const { chess } = this
-    const from = this.pendingMove[0]
-    const to = this.pendingMove[1]
+  const promotion = e => {
+    const from = pendingMove[0]
+    const to = pendingMove[1]
     chess.move({ from, to, promotion: e })
-    this.setState({
-      fen: chess.fen(),
-      lastMove: [from, to],
-      selectVisible: false
-    })
-    setTimeout(this.randomMove, 500)
+    setFen(chess.fen())
+    setLastMove([from, to])
+    setSelectVisible(false)
+    setTimeout(randomMove, 500)
   }
 
-  turnColor() {
-    return this.chess.turn() === "w" ? "white" : "black"
+  const turnColor = () => {
+    return chess.turn() === "w" ? "white" : "black"
   }
 
-  calcMovable() {
+  const calcMovable = () => {
     const dests = {}
-    this.chess.SQUARES.forEach(s => {
-      const ms = this.chess.moves({ square: s, verbose: true })
+    chess.SQUARES.forEach(s => {
+      const ms = chess.moves({ square: s, verbose: true })
       if (ms.length) dests[s] = ms.map(m => m.to)
     })
     return {
@@ -78,46 +69,40 @@ class Demo extends React.Component {
     }
   }
 
-  render() {
-    const { selectVisible, fen, lastMove } = this.state
-    return (
-      <div style={{ background: "#2b313c", height: "100vh" }}>
-        <Col span={6} />
-        <Col span={12} style={{ top: "10%" }}>
-          <Chessground
-            width="38vw"
-            height="38vw"
-            turnColor={this.turnColor()}
-            movable={this.calcMovable()}
-            lastMove={lastMove}
-            fen={fen}
-            onMove={this.onMove}
-            style={{ margin: "auto" }}
-            ref={el => {
-              this.chessground = el
-            }}
-          />
-        </Col>
-        <Col span={6} />
-        <Modal visible={selectVisible} footer={null} closable={false}>
-          <div style={{ textAlign: "center", cursor: "pointer" }}>
-            <span role="presentation" onClick={() => this.promotion("q")}>
-              <img src={queen} alt="" style={{ width: 50 }} />
-            </span>
-            <span role="presentation" onClick={() => this.promotion("r")}>
-              <img src={rook} alt="" style={{ width: 50 }} />
-            </span>
-            <span role="presentation" onClick={() => this.promotion("b")}>
-              <img src={bishop} alt="" style={{ width: 50 }} />
-            </span>
-            <span role="presentation" onClick={() => this.promotion("n")}>
-              <img src={knight} alt="" style={{ width: 50 }} />
-            </span>
-          </div>
-        </Modal>
-      </div>
-    )
-  }
+  return (
+    <div style={{ background: "#2b313c", height: "100vh" }}>
+      <Col span={6} />
+      <Col span={12} style={{ top: "10%" }}>
+        <Chessground
+          width="38vw"
+          height="38vw"
+          turnColor={turnColor()}
+          movable={calcMovable()}
+          lastMove={lastMove}
+          fen={fen}
+          onMove={onMove}
+          style={{ margin: "auto" }}
+        />
+      </Col>
+      <Col span={6} />
+      <Modal visible={selectVisible} footer={null} closable={false}>
+        <div style={{ textAlign: "center", cursor: "pointer" }}>
+          <span role="presentation" onClick={() => promotion("q")}>
+            <img src={queen} alt="" style={{ width: 50 }} />
+          </span>
+          <span role="presentation" onClick={() => promotion("r")}>
+            <img src={rook} alt="" style={{ width: 50 }} />
+          </span>
+          <span role="presentation" onClick={() => promotion("b")}>
+            <img src={bishop} alt="" style={{ width: 50 }} />
+          </span>
+          <span role="presentation" onClick={() => promotion("n")}>
+            <img src={knight} alt="" style={{ width: 50 }} />
+          </span>
+        </div>
+      </Modal>
+    </div>
+  )
 }
 
 ReactDOM.render(<Demo />, document.getElementById("root"))
