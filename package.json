@@ -1,7 +1,7 @@
 {
   "name": "react-chessground",
   "version": "1.5.0",
-  "description": "React warp for chessground <https://github.com/ornicar/chessground>",
+  "description": "React wrapper for chessground <https://github.com/ornicar/chessground>",
   "main": "index.js",
   "module": "es/index.js",
   "scripts": {
@@ -26,8 +26,12 @@
   },
   "homepage": "https://github.com/ruilisi/react-chessground",
   "dependencies": {
-    "chessground": "^7.6.12",
-    "react-scripts": "^3.3.0"
+    "chessground": "^7.6.12"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -38,6 +42,6 @@
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-uglifycss": "^1.1.0",
-    "react": "^16.12.0"
+    "react-scripts": "^3.4.3"
   }
 }
