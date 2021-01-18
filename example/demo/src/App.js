@@ -57,10 +57,10 @@ const Demo = () => {
   }
 
   const calcMovable = () => {
-    const dests = {}
+    const dests = new Map()
     chess.SQUARES.forEach(s => {
       const ms = chess.moves({ square: s, verbose: true })
-      if (ms.length) dests[s] = ms.map(m => m.to)
+      if (ms.length) dests.set(s, ms.map(m => m.to))
     })
     return {
       free: false,
