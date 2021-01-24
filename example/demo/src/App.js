@@ -10,27 +10,11 @@ import bishop from "./images/wB.svg"
 import knight from "./images/wN.svg"
 
 const Demo = () => {
-  const [chess, setChess] = useState(new Chess())
+  const [chess] = useState(new Chess())
   const [pendingMove, setPendingMove] = useState()
   const [selectVisible, setSelectVisible] = useState(false)
   const [fen, setFen] = useState("")
   const [lastMove, setLastMove] = useState()
-
-  const onMove = (from, to) => {
-    const moves = chess.moves({ verbose: true })
-    for (let i = 0, len = moves.length; i < len; i++) { /* eslint-disable-line */
-      if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
-        setPendingMove([from, to])
-        setSelectVisible(true)
-        return
-      }
-    }
-    if (chess.move({ from, to, promotion: "x" })) {
-      setFen(chess.fen())
-      setLastMove([from, to])
-      setTimeout(randomMove, 500)
-    }
-  }
 
   const randomMove = () => {
     const moves = chess.moves({ verbose: true })
@@ -39,6 +23,24 @@ const Demo = () => {
       chess.move(move.san)
       setFen(chess.fen())
       setLastMove([move.from, move.to])
+    }
+  }
+
+  const onMove = (from, to) => {
+    const moves = chess.moves({ verbose: true })
+
+    moves.forEach(move => {
+      if (move.flags.indexOf("p") !== -1 && move.from === from) {
+        setPendingMove([from, to])
+        setSelectVisible(true)
+        return
+      }
+    })
+
+    if (chess.move({ from, to, promotion: "x" })) {
+      setFen(chess.fen())
+      setLastMove([from, to])
+      setTimeout(randomMove, 500)
     }
   }
 
