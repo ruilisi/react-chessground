@@ -34,7 +34,6 @@ const Demo = () => {
     return {
       free: false,
       dests,
-      color: turnColor(),
     };
   };
 
