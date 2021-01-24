@@ -48,6 +48,19 @@ module.exports = {
     ],
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx", "tsx"] }],
   },
-  plugins: ["css-modules", "prettier"],
+  plugins: [
+    "css-modules",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+  ],
   extends: ["airbnb", "prettier", "plugin:css-modules/recommended"],
+  overrides: {
+    files: ["**/*.ts"],
+    parser: "typescript-eslint-parser",
+    rules: {
+      "no-undef": "off",
+    },
+  },
 };
