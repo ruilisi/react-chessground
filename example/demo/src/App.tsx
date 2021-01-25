@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Chess, { ChessInstance, Move, Square } from "chess.js";
 
@@ -25,6 +25,10 @@ const Demo = () => {
   const [fen, setFen] = useState("");
   const [lastMove, setLastMove] = useState<Square[]>();
   const [cards, setCards] = useState<MoveCard[]>([]);
+
+  useEffect(() => {
+    setCards(getCards());
+  }, []);
 
   const getCards = (): MoveCard[] => {
     const cards: MoveCard[] = [];
