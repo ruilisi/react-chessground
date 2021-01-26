@@ -10,6 +10,9 @@ import { Col } from "antd";
 // @eslint-ignore
 import openings from "./openings.ts";
 
+import undo from "./images/undo-4-32.png";
+import rewind from "./images/rewind-32.png";
+
 interface MoveCard {
   move: Move;
   name: string;
@@ -55,15 +58,19 @@ const Demo = () => {
 
   const getCurrentOpeningName = (): string => {
     console.log(openings[getTrimmedFen(chess.fen())]);
-    return openings[getTrimmedFen(chess.fen())]?.name ?? "";
+    return openings[getTrimmedFen(chess.fen())]?.name ?? " ";
+  };
+
+  const setState = () => {
+    setFen(chess.fen());
+    setCards(getCards());
+    setCurrentOpeningName(getCurrentOpeningName());
   };
 
   const onMove = (from: Square, to: Square) => {
     if (chess.move({ from, to })) {
-      setFen(chess.fen());
       setLastMove([from, to]);
-      setCards(getCards());
-      setCurrentOpeningName(getCurrentOpeningName());
+      setState();
     }
   };
 
@@ -88,6 +95,21 @@ const Demo = () => {
     };
   };
 
+  const onBackClick = () => {
+    const move = chess.undo();
+    if (!move) return;
+
+    setLastMove([move.from, move.to]);
+    setState();
+  };
+
+  const onResetClick = () => {
+    chess.reset();
+
+    setLastMove([]);
+    setState();
+  };
+
   return (
     <div style={{ height: "100vh" }}>
       <Col span={6} />
@@ -103,6 +125,14 @@ const Demo = () => {
           style={{ margin: "auto" }}
         />
         <div className="opening-name">{currentOpeningName}</div>
+        <div className="buttons">
+          <button onClick={onResetClick}>
+            <img src={rewind}></img>
+          </button>
+          <button onClick={onBackClick}>
+            <img src={undo}></img>
+          </button>
+        </div>
       </Col>
       <Col span={6} />
       <Col style={{ top: "10%", paddingLeft: 20 }} span={6}>

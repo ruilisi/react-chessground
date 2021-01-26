@@ -6,12 +6,25 @@ body {
   color: white;
 }
 
+button {
+  background-color: transparent;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .opening-name {
   font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 10px;
+  height: 70px;
 }
 
 .grid-container {
