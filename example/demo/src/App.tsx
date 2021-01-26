@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Chess, { ChessInstance, Move, Square } from "chess.js";
+import "./index.css";
 
 // @ts-ignore
 import Chessground from "react-chessground";
@@ -25,6 +26,7 @@ const Demo = () => {
   const [fen, setFen] = useState("");
   const [lastMove, setLastMove] = useState<Square[]>();
   const [cards, setCards] = useState<MoveCard[]>([]);
+  const [currentOpeningName, setCurrentOpeningName] = useState("");
 
   useEffect(() => {
     setCards(getCards());
@@ -32,7 +34,7 @@ const Demo = () => {
 
   const getCards = (): MoveCard[] => {
     const cards: MoveCard[] = [];
-    chess.moves().forEach(move => {
+    chess.moves().forEach((move) => {
       const possibleMove = chess.move(move);
       const trimmedFen = getTrimmedFen(chess.fen());
       const opening = openings[trimmedFen];
@@ -51,11 +53,17 @@ const Demo = () => {
     return cards;
   };
 
+  const getCurrentOpeningName = (): string => {
+    console.log(openings[getTrimmedFen(chess.fen())]);
+    return openings[getTrimmedFen(chess.fen())]?.name ?? "";
+  };
+
   const onMove = (from: Square, to: Square) => {
     if (chess.move({ from, to })) {
       setFen(chess.fen());
       setLastMove([from, to]);
       setCards(getCards());
+      setCurrentOpeningName(getCurrentOpeningName());
     }
   };
 
@@ -65,9 +73,13 @@ const Demo = () => {
 
   const calcMovable = () => {
     const dests = new Map();
-    chess.SQUARES.forEach(s => {
+    chess.SQUARES.forEach((s) => {
       const ms = chess.moves({ square: s, verbose: true });
-      if (ms.length) dests.set(s, ms.map(m => m.to));
+      if (ms.length)
+        dests.set(
+          s,
+          ms.map((m) => m.to),
+        );
     });
 
     return {
@@ -77,7 +89,7 @@ const Demo = () => {
   };
 
   return (
-    <div style={{ background: "#2b313c", height: "100vh" }}>
+    <div style={{ height: "100vh" }}>
       <Col span={6} />
       <Col span={12} style={{ top: "10%" }}>
         <Chessground
@@ -90,12 +102,13 @@ const Demo = () => {
           onMove={onMove}
           style={{ margin: "auto" }}
         />
+        <div className="opening-name">{currentOpeningName}</div>
       </Col>
       <Col span={6} />
-      <Col style={{ top: "10%", color: "#ffffff" }} span={6}>
+      <Col style={{ top: "10%", paddingLeft: 20 }} span={6}>
         <div>
-          {cards.map(card => (
-            <div>{card.name}</div>
+          {cards.map((card, i) => (
+            <div key={i}>{card.name}</div>
           ))}
         </div>
       </Col>
