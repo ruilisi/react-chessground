@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import Chess, { ChessInstance, Move, Square } from "chess.js";
 import "./index.css";
 
-import Chessground from "../../../src/chessground.js";
+//@ts-ignore
+import Chessground from "react-chessground";
 import "react-chessground/dist/styles/chessground.css";
 import { Col } from "antd";
 // @eslint-ignore
