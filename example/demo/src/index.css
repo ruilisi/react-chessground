@@ -12,12 +12,6 @@ button {
   margin-right: 10px;
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .opening-name {
   font-size: 30px;
   display: flex;
@@ -27,8 +21,22 @@ button {
   height: 70px;
 }
 
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 20px;
+}
+
+.move-box {
+  display: flex;
+  margin-top: 10px;
+  width: 200px;
+  height: 60px;
+  background: #111111;
 }

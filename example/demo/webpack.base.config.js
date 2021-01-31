@@ -7,6 +7,9 @@ module.exports = {
     filename: "bundle.[hash].js",
     path: path.join(__dirname, "/dist"),
   },
+  resolve: {
+    extensions: [".js", ".ts", ".tsx"],
+  },
   module: {
     rules: [
       {
@@ -14,7 +17,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(js|ts|tsx)$/,
+        test: /\.(js|ts|jsx|tsx)$/,
         exclude: /node_modules/,
         use: [
           {
