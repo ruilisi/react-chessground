@@ -71,7 +71,8 @@ export default class Chessground extends React.Component {
   }
 
   render() {
-    this.cg.setAutoShapes(this.props.drawable.autoShapes);
+    if (this.cg && this.props.drawable?.autoShapes)
+      this.cg.setAutoShapes(this.props.drawable.autoShapes);
 
     const props = { style: { ...this.props.style } };
     if (this.props.width) {
