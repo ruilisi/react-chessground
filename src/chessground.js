@@ -58,6 +58,10 @@ export default class Chessground extends React.Component {
     return config;
   }
 
+  componentDidMount() {
+    this.cg = NativeChessground(this.el, this.buildConfigFromProps(this.props));
+  }
+
   componentWillReceiveProps(nextProps) {
     this.cg.set(this.buildConfigFromProps(nextProps));
   }
